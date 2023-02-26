@@ -9,7 +9,7 @@ class Solution {
         vis[node] = 1;
         queue<int> q;
         q.push(node);
-        
+        	
         while(!q.empty()){
             node = q.front();
             q.pop();
