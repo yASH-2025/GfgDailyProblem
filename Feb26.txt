@@ -1,0 +1,42 @@
+/*
+A component will be a good component if all the nodes are having number of edges equal to the size of component-1
+*/
+
+
+class Solution {
+  public:
+    void bfs(vector<vector<int>> &adj, vector<int> &vis, vector<int> &comp, int node){
+        vis[node] = 1;
+        queue<int> q;
+        q.push(node);
+        
+        while(!q.empty()){
+            node = q.front();
+            q.pop();
+            comp.push_back(node);
+            
+            for(auto it:adj[node]){
+                if(!vis[it]){
+                    vis[it] = 1;
+                    q.push(it);
+                }
+            }
+        }
+    }
+    
+    int findNumberOfGoodComponent(int V, vector<vector<int>>& adj) {
+        int ans = 0;
+        vector<int> vis(V+1, 0);
+        for(int i=1; i<=V; i++){
+            if(vis[i]) continue;
+            vector<int> comp;
+            bool flag = true;
+            bfs(adj, vis, comp, i);
+            for(auto it:comp){
+                if(adj[it].size() != comp.size()-1) flag = false;
+            }
+            if(flag) ans++;
+        }
+        return ans;
+    }
+};
