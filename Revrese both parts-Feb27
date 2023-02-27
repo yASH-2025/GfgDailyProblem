@@ -1,0 +1,26 @@
+/*
+We 1st reverse the lnodes from the head and then we reverse remaining n-k nodes and then connect both of them 
+*/
+
+class Solution{
+public:
+   
+    Node *reverse(Node *head, int k){
+        //reversing first k nodes
+        int i=0;
+        Node *curr = head, *prev1 = NULL, *forward = NULL;
+        while(i<k){
+            forward = curr->next;
+            curr->next =  prev1;
+            prev1 = curr, curr = forward, i++;
+        }
+        Node *prev2 = NULL, *head2 = curr;
+        while(curr != NULL){
+            forward = curr->next;
+            curr->next = prev2;
+            prev2 = curr, curr = forward;
+        }
+        head->next = prev2;
+        return prev1;
+    }
+};
